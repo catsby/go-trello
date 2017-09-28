@@ -105,21 +105,21 @@ func (b *Board) Lists() (lists []List, err error) {
 }
 
 func (b *Board) NewLabel(opts Label) (*Label, error) {
-        opts.IdBoard = b.Id
-        return b.client.NewLabel(opts)
+	opts.IdBoard = b.Id
+	return b.client.NewLabel(opts)
 }
 
 func (b *Board) Labels() (labels []Label, err error) {
-        body, err := b.client.Get("/boards/" + b.Id + "/labels")
-        if err != nil {
-                return
-        }
+	body, err := b.client.Get("/boards/" + b.Id + "/labels")
+	if err != nil {
+		return
+	}
 
-        err = json.Unmarshal(body, &labels)
-        for i := range labels {
-                labels[i].client = b.client
-        }
-        return
+	err = json.Unmarshal(body, &labels)
+	for i := range labels {
+		labels[i].client = b.client
+	}
+	return
 }
 
 func (b *Board) Members() (members []Member, err error) {

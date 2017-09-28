@@ -62,7 +62,7 @@ type Card struct {
 		Description        bool   `json:"description"`
 		Due                string `json:"due"`
 	} `json:"badges"`
-        Labels []Label
+	Labels []Label
 }
 
 func (c *Client) Card(CardId string) (card *Card, err error) {
@@ -74,10 +74,10 @@ func (c *Client) Card(CardId string) (card *Card, err error) {
 	err = json.Unmarshal(body, &card)
 	card.client = c
 
-        // assing the client to each Label returned
-        for _, l := range card.Labels {
-                l.client = c
-        }
+	// assing the client to each Label returned
+	for _, l := range card.Labels {
+		l.client = c
+	}
 	return
 }
 
@@ -192,17 +192,17 @@ func (c *Card) AddComment(text string) (*Action, error) {
 }
 
 func (c *Card) RemoveLabel(id string) error {
-        _, err := c.client.Delete("/cards/" + c.Id + "/idLabels/" + id)
-        return err
+	_, err := c.client.Delete("/cards/" + c.Id + "/idLabels/" + id)
+	return err
 }
 
 func (c *Card) AddLabel(id string) error {
-        payload := url.Values{}
-        payload.Set("value", id)
-        _, err := c.client.Post("/cards/"+c.Id+"/idLabels", payload)
-        if err != nil {
-                return err
-        }
+	payload := url.Values{}
+	payload.Set("value", id)
+	_, err := c.client.Post("/cards/"+c.Id+"/idLabels", payload)
+	if err != nil {
+		return err
+	}
 
-        return nil
+	return nil
 }
