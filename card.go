@@ -42,6 +42,7 @@ type Card struct {
 	Subscribed            bool     `json:"subscribed"`
 	Url                   string   `json:"url"`
 	Due                   string   `json:"due"`
+	DueComplete           bool     `json:"dueComplete"`
 	Desc                  string   `json:"desc"`
 	DescData              struct {
 		Emoji struct{} `json:"emoji"`
@@ -61,6 +62,7 @@ type Card struct {
 		Attachments        int    `json:"attachments"`
 		Description        bool   `json:"description"`
 		Due                string `json:"due"`
+		DueComplete        bool   `json:"dueComplete"`
 	} `json:"badges"`
 	Labels []Label
 }
