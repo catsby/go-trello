@@ -18,6 +18,7 @@ package trello
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 )
 
@@ -202,6 +203,21 @@ func (c *Card) AddLabel(id string) error {
 	payload := url.Values{}
 	payload.Set("value", id)
 	_, err := c.client.Post("/cards/"+c.Id+"/idLabels", payload)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// Save saves the updated card via PUT
+// https://developers.trello.com/v1.0/reference#cardsid-1
+func (c *Card) Save() error {
+	surl := fmt.Sprintf("/cards/%s", c.Id)
+	// idList?value={new list ID}
+	v := url.Values{}
+	v.Set("idList", c.IdList)
+	_, err := c.client.Put(surl, v)
 	if err != nil {
 		return err
 	}
