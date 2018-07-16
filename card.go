@@ -20,6 +20,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+	"strconv"
 )
 
 type Card struct {
@@ -217,6 +218,7 @@ func (c *Card) Save() error {
 	// idList?value={new list ID}
 	v := url.Values{}
 	v.Set("idList", c.IdList)
+	v.Set("pos", strconv.FormatFloat(c.Pos, 'E', -1, 64))
 	_, err := c.client.Put(surl, v)
 	if err != nil {
 		return err
